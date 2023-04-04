@@ -12,6 +12,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
+import { MatMenuModule } from '@angular/material/menu';
 
 import { TaskComponent } from './task/task.component';
 import { TaskDialogComponent } from './task/task-dialog/task-dialog.component';
@@ -36,11 +37,35 @@ import {
 import { provideStorage, getStorage } from '@angular/fire/storage';
 import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireModule } from '@angular/fire/compat';
+import { KanbanComponent } from './kanban/kanban.component';
+import { Route, RouterModule } from '@angular/router';
+import { HomeComponent } from './home/home.component';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { redirectUnauthorizedTo, AuthGuard } from '@angular/fire/auth-guard';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { FooterComponent } from './components/footer/footer.component';
+const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
+const routes: Route[] = [
+  {
+    path:"",
+    component: HomeComponent
+  },
+  {
+    path: "kanban",
+    component: KanbanComponent,
+    canActivate: [AuthGuard],
+    data: { authGuardPipe: redirectUnauthorizedToLogin },
+    resolve: {
+      // user: UserResolver,
+    }
+  }
+]
 @NgModule({
-  declarations: [AppComponent, TaskComponent, TaskDialogComponent],
+  declarations: [AppComponent, TaskComponent, TaskDialogComponent, KanbanComponent, HomeComponent, NavbarComponent, FooterComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
+    RouterModule.forRoot(routes),
     FormsModule,
     DragDropModule,
     MatToolbarModule,
@@ -48,9 +73,11 @@ import { AngularFireModule } from '@angular/fire/compat';
     MatCardModule,
     MatButtonModule,
     MatDialogModule,
+    MatMenuModule,
     MatInputModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
+    AngularFireAuthModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAnalytics(() => getAnalytics()),
     provideAuth(() => getAuth()),

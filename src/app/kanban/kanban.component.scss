@@ -1,0 +1,45 @@
+.content-wrapper {
+  // max-width: 1400px;
+  margin: auto;
+}
+
+.container-wrapper {
+  display: flex;
+  flex-direction: row;
+  // justify-content: space-around;
+  overflow-x: scroll;
+}
+
+.list-container {
+  min-width: 272px;
+  margin: 0 25px 25px 0;
+}
+
+.list-footer {
+  position: sticky;
+  bottom: 0px;
+  background-color: #F0F0F0;
+}
+
+app-new-task {
+  margin-bottom: 30px;
+}
+
+.empty-label {
+  font-size: 2em;
+  padding-top: 10px;
+  text-align: center;
+  opacity: 0.2;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms;
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+mat-card {
+  padding-bottom: 0;
+}

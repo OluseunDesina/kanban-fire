@@ -12,8 +12,10 @@ export class TaskDialogComponent implements OnInit {
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: any,
-    private dialogRef: MatDialogRef<TaskDialogComponent>
+    private dialogRef: MatDialogRef<TaskDialogComponent>,
   ) { }
+
+
 
   ngOnInit(): void {
   }
@@ -22,5 +24,10 @@ export class TaskDialogComponent implements OnInit {
     this.data.task.title = this.backupTask.title;
     this.data.task.description = this.backupTask.description;
     this.dialogRef.close(this.data);
+  }
+
+  onSave() {
+    if (!this.data.task.title) return;
+    this.dialogRef.close({ task: this.data.task })
   }
 }

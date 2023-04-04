@@ -1,0 +1,17 @@
+<mat-toolbar class="my-navbar d-flex justify-content-between" color="primary">
+  <div>
+    <mat-icon>local_fire_department</mat-icon>
+    <span>Kanban Fire</span>
+  </div>
+
+  <div>
+    <button *ngIf="user" mat-button [matMenuTriggerFor]="menu">
+      <mat-icon>account_circle</mat-icon>
+      Welcome {{user.displayName || 'Anonymous'}}
+      <!-- <img class="rounded-circle img-fluid" width="50px" height="50px" [src]="user.photoURL" alt=""> -->
+    </button>
+    <mat-menu #menu="matMenu">
+      <button (click)="logout()" mat-menu-item>Logout</button>
+    </mat-menu>
+  </div>
+</mat-toolbar>
